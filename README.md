@@ -1,59 +1,459 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PHP_Laravel12_Top
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Project Description
 
-## About Laravel
+PHP_Laravel12_Top is a lightweight Laravel 12 application that monitors your server and PHP environment in real-time.
+It displays information like PHP version, Laravel version, memory usage, peak memory, disk usage, and operating system in a terminal-style UI.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Displays PHP version
 
-## Learning Laravel
+- Displays Laravel version
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- Shows Operating System info
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Displays Memory Usage and Peak Memory Usage
 
-## Laravel Sponsors
+- Displays Disk Free and Total Space
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Modern terminal-style design using CSS
 
-### Premium Partners
+- Optional authentication/dashboard integration
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- Fully compatible with Laravel 12
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Technologies Used
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. PHP 8.x – Server-side language
 
-## Security Vulnerabilities
+2. Laravel 12 – PHP framework
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. Blade – Laravel templating engine
 
-## License
+4. HTML5 & CSS3 – Frontend design
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. MySQL (optional) – For authentication data
+
+6. Bootstrap (optional) – For UI scaffolding if auth is added
+
+
+
+---
+
+
+
+## Installation Steps
+
+
+---
+
+
+## STEP 1: Create Laravel 12 Project
+
+### Open terminal / CMD and run:
+
+```
+composer create-project laravel/laravel PHP_Laravel12_Top "12.*"
+
+```
+
+### Go inside project:
+
+```
+cd PHP_Laravel12_Top
+
+```
+
+#### Explanation:
+
+This command installs a fresh Laravel 12 application named PHP_Laravel12_Top and moves into the project directory to start development.
+
+
+
+
+## STEP 2: Database Setup (Optional)
+
+### Update database details:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel12_top
+DB_USERNAME=root
+DB_PASSWORD=
+
+```
+
+### Create database in MySQL / phpMyAdmin:
+
+```
+Database name: laravel12_top
+
+```
+
+### Run Migrations
+
+```
+php artisan migrate
+
+```
+
+
+#### Explanation:
+
+This step connects Laravel with MySQL and creates required default tables like migrations, users, etc., inside the laravel12_top database.
+
+
+
+
+
+## STEP 3: Install Authentication UI
+
+### Install Laravel UI package:
+
+```
+composer require laravel/ui
+
+```
+
+### Generate authentication scaffolding::
+
+```
+php artisan ui bootstrap --auth
+npm install
+npm run dev
+
+```
+
+#### Explanation:
+
+This installs login, register, password reset functionality with Bootstrap-based frontend UI. (Optional if you want authentication features.)
+
+
+
+
+
+## STEP 4: Modify Routes
+
+### Open routes/web.php and update:
+
+```
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+
+    return view('top', [
+        'php_version' => phpversion(),
+        'laravel_version' => app()->version(),
+        'os' => PHP_OS,
+        'memory_usage' => round(memory_get_usage() / 1024 / 1024, 2) . ' MB',
+        'memory_peak' => round(memory_get_peak_usage() / 1024 / 1024, 2) . ' MB',
+        'disk_free' => round(disk_free_space("/") / 1024 / 1024 / 1024, 2) . ' GB',
+        'disk_total' => round(disk_total_space("/") / 1024 / 1024 / 1024, 2) . ' GB',
+    ]);
+
+});
+
+```
+
+#### Explanation:
+
+This route loads the Laravel TOP Monitor page and passes real-time system information like PHP version, memory usage, and disk space to the Blade view.
+
+
+
+
+
+## STEP 5: Home Controller
+
+### Generate:
+
+```
+php artisan make:controller HomeController
+
+```
+
+### Then open: app/Http/Controllers/HomeController.php
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('home');
+    }
+}
+
+```
+
+
+#### Explanation:
+
+This controller is only needed if authentication is used. It manages the dashboard page for logged-in users.
+
+
+
+
+
+## STEP 6: Blade Views
+
+### resources/views/top.blade.php
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Laravel 12 TOP Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', monospace;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #00ff99;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff99;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px #00ff99;
+        }
+
+        .dashboard {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ff99;
+            border-radius: 15px;
+            padding: 30px 40px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .info-box {
+            background: rgba(0, 255, 153, 0.05);
+            border-left: 5px solid #00ff99;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            transition: 0.3s all;
+        }
+
+        .info-box:hover {
+            background: rgba(0, 255, 153, 0.15);
+            transform: translateX(5px);
+        }
+
+        .label {
+            color: #00ffaa;
+            font-weight: 500;
+        }
+
+        .value {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #00ff99;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <h1>Laravel 12 TOP Monitor</h1>
+
+        <div class="info-box">
+            <span class="label">PHP Version:</span>
+            <span class="value">{{ $php_version }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Laravel Version:</span>
+            <span class="value">{{ $laravel_version }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Operating System:</span>
+            <span class="value">{{ $os }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Memory Usage:</span>
+            <span class="value">{{ $memory_usage }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Peak Memory Usage:</span>
+            <span class="value">{{ $memory_peak }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Disk Free Space:</span>
+            <span class="value">{{ $disk_free }}</span>
+        </div>
+
+        <div class="info-box">
+            <span class="label">Total Disk Space:</span>
+            <span class="value">{{ $disk_total }}</span>
+        </div>
+
+        <div class="footer">
+            Laravel TOP Monitor &copy; {{ date('Y') }} | Realtime System Info
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+```
+
+
+#### Explanation:
+
+This Blade file displays system information in a terminal-style design using dynamic variables passed from the route.
+
+
+
+
+
+## STEP 7: Run The Project
+
+### Open new terminal:
+
+```
+npm run dev
+
+```
+
+### Run:
+
+```
+php artisan serve
+
+```
+
+### Open in browser:
+
+```
+http://localhost:8000
+
+```
+
+
+#### Explanation:
+
+npm run dev compiles frontend assets (if authentication UI is installed), and php artisan serve starts the Laravel development server.
+
+
+
+## Expected Output:
+
+
+<img width="1919" height="950" alt="Screenshot 2026-03-03 152538" src="https://github.com/user-attachments/assets/b9849277-c503-4e2d-8f29-f6a8d582730d" />
+
+
+---
+
+# Project Folder Structure:
+
+```
+PHP_Laravel12_Top/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   └── (optional - not required for basic TOP view)
+│   │   └── Middleware/
+│   └── Models/
+│
+├── bootstrap/
+│
+├── config/
+│
+├── database/
+│   ├── migrations/
+│   ├── factories/
+│   └── seeders/
+│
+├── public/
+│   ├── index.php
+│   └── favicon.ico
+│
+├── resources/
+│   ├── views/
+│   │   └── top.blade.php
+│   ├── css/
+│   └── js/
+│
+├── routes/
+│   └── web.php
+│
+├── storage/
+│
+├── tests/
+│
+├── .env
+├── artisan
+├── composer.json
+├── package.json
+└── README.md
+```
