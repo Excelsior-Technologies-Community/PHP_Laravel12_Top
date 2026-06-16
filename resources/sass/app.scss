@@ -6,3 +6,25 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Custom Dark Mode Styles
+.dark {
+    body {
+        background-color: #1a1a2e;
+        color: #e2e8f0;
+    }
+    
+    .navbar {
+        background-color: #1e293b !important;
+        border-bottom: 1px solid #334155;
+    }
+
+    .card, .dropdown-menu {
+        background-color: #1e293b !important;
+        color: white !important;
+    }
+}

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
-
     $startTime = session('start_time');
 
     if (!$startTime) {
@@ -29,5 +29,12 @@ Route::get('/', function () {
         'disk_total' => round(disk_total_space("/") / 1024 / 1024 / 1024, 2) . ' GB',
         'uptime' => $uptime,
     ]);
+});
 
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/profile/avatar', [HomeController::class, 'updateAvatar'])->name('profile.avatar');
 });
